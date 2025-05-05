@@ -1,0 +1,12 @@
+#	Technique / Concept	Use Explanation
+1	File Handling	open(), os.path.exists(), json.load(), json.dump() for persistent storage
+2	Dictionaries	To store customer, account, and transaction data (key-value structure)
+3	Functions (Modular Coding)	Reusable blocks like save_all(), transact(), menu_handler()
+4	Control Flow	if, else, while, try/except for logic handling
+5	User Input Validation	Check for positive numbers, valid choices, existing usernames, etc.
+6	String Formatting	Using f"..." to print messages and combine strings
+7	CLI Menu System	Simple text-based interface for navigation
+8	Authentication System	Admin and customer login with credential checks
+9	ID Generation	Auto-generate customer account IDs dynamically
+10	setdefault() Usage	Clean way to handle list initialization in a dictionary
+11	Persistent Storage using JSON	Keeps all data in .txt files between program runs

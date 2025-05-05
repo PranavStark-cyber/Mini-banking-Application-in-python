@@ -85,29 +85,47 @@ def create_customer():
     save_all()
     print(f"Customer created with ID: {new_id}")
 
+def list_all_customers():
+    print("\n--- All Customers ---")
+    for username, data in customers.items():
+        acc_id = data['id']
+        name = accounts.get(acc_id, {}).get("name", "Unknown")
+        print(f"ID: {acc_id}, Username: {username}, Name: {name}")
+
 # Menu dispatcher
 def menu_handler(acc_id, is_admin=False):
-    actions = {
-        "1": lambda: transact(acc_id, True),
-        "2": lambda: transact(acc_id, False),
-        "3": lambda: show_balance(acc_id),
-        "4": lambda: show_history(acc_id)
-    }
-
     while True:
         print(f"\n--- {'Admin' if is_admin else 'Customer'} Menu ---")
         print("1. Deposit\n2. Withdraw\n3. Check Balance\n4. Transaction History")
         if is_admin:
-            print("5. Create Customer\n6. Logout")
+            print("5. Create Customer\n6. List Customers\n7. Logout")
         else:
             print("5. Logout")
 
         choice = input("Select: ")
-        if choice in actions:
-            actions[choice]()
+
+        if choice in ["1", "2", "3", "4"]:
+            target_id = acc_id
+            if is_admin:
+                target_id = input("Enter customer ID: ")
+                if target_id not in accounts:
+                    print("Invalid customer ID.")
+                    continue
+
+            if choice == "1":
+                transact(target_id, True)
+            elif choice == "2":
+                transact(target_id, False)
+            elif choice == "3":
+                show_balance(target_id)
+            elif choice == "4":
+                show_history(target_id)
+
         elif is_admin and choice == "5":
             create_customer()
-        elif (is_admin and choice == "6") or (not is_admin and choice == "5"):
+        elif is_admin and choice == "6":
+            list_all_customers()
+        elif (is_admin and choice == "7") or (not is_admin and choice == "5"):
             break
         else:
             print("Invalid choice.")
